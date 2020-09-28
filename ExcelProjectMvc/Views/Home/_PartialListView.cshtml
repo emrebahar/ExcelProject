@@ -1,0 +1,52 @@
+﻿
+@using ExcelProjectMvc.Models
+@model ListPerson
+
+
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+
+@if (Model.Persons.Count() > 0 && Model.Persons != null)
+{
+    <a href="/Home/ConvertToExcel" class="btn btn-success">Excel olarak indir</a>
+}
+
+
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Adı</th>
+            <th>Soyadı</th>
+            <th>Adres</th>
+            <th>Mail</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Persons != null && Model.Persons.Count() > 0)
+        {
+            foreach (var item in Model.Persons)
+            {
+                <tr>
+                    <td>@item.Name </td>
+                    <td>@item.Surname </td>
+                    <td>@item.Address </td>
+                    <td>@item.Email </td>
+
+                </tr>
+            }
+        }
+
+    </tbody>
+
+</table>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>

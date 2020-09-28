@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using ExcelProjectMvc.Models
+@model ListPerson
+
+<br />
+<br />
+
+
+<form id="addPersonForm">
+    <div class="form-group">
+        <label for="email">İsim:</label>
+        <input type="text" class="form-control" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Soyisim:</label>
+        <input type="text" class="form-control" name="surname" required>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Adres:</label>
+        <input type="text" class="form-control" name="address" required>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Email:</label>
+        <input type="email" class="form-control" name="email" required>
+    </div>
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>
+
+<br />
+<br />
+
+
+
+<div id="partialList">
+
+    @Html.Partial("/Views/Home/_PartialListView.cshtml", Model)
+</div>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $("#addPersonForm").submit(function (event) {
+        event.preventDefault();
+
+        debugger;
+        var formValue = (this);
+
+        $.ajax({
+            url: '/Home/AddPerson',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: new FormData(formValue),
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+
+                $('#partialList').html(result);
+                document.getElementById("addPersonForm").reset();
+
+            }
+        });
+
+
+    });
+</script>
+
